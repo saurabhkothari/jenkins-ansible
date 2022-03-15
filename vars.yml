@@ -1,0 +1,10 @@
+#apic_host: 
+apic_use_proxy: no
+apic_validate_certs: no
+apic:
+ bootstrap:
+   #user: 
+   #password: 
+api_path:
+ firmware_nodes: "/api/node/class/fabricNode.json"
+
