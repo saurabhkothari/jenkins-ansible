@@ -5,4 +5,7 @@ apic_user:
 apic_password: 
 api_path:
  firmware_nodes: "/api/node/class/fabricNode.json"
+ pending_registration: /api/node/class/dhcpClient.json?query-target-filter=and(or(eq(dhcpClient.ip,"0.0.0.0")),or(eq(dhcpClient.nodeRole,"spine"),eq(dhcpClient.nodeRole,"leaf"),eq(dhcpClient.nodeRole,"unsupported")))
+ registered_nodes: "/api/node/mo/uni/controller/nodeidentpol.json"
+ discovered_nodes: "/api/node/class/fabricNode.json"
 
