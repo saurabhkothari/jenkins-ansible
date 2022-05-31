@@ -10,7 +10,7 @@ api_path:
  discovered_nodes: "/api/node/class/fabricNode.json"
  bdSubnet: "/api/node/class/fvBD.json?rsp-subtree=children"
  dns_config: "/api/node/mo/uni/fabric.json"  
- ntp_config: "/api/node/mo/uni/fabric/time-ntp.json"
+ ntp_config: "/api/node/mo/uni/fabric/time-ntp-pol.json"
 
 fabric:
   pol:
