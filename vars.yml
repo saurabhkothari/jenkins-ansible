@@ -12,6 +12,8 @@ api_path:
  dns_config: "/api/node/mo/uni/fabric.json"  
  ntp_config: "/api/node/mo/uni/fabric/time-ntp-pol.json"
 
+apic_encryption_passphrase: 
+
 fabric:
   pol:
    name: "dns-pol"
