@@ -70,7 +70,7 @@
                     pkiExportEncryptionKey:
                       attributes:
                         strongEncryptionEnabled: 'true'
-                        passphrase: '{{ apic.bootstrap.passphrase }}'
+                        passphrase: '{{ apic_encryption_passphrase }}'
           register: result
           retries: 2
           delay: 3
