@@ -57,7 +57,7 @@
               <<: *aci_login
               method: post
               path: "{{ api_path.ntp_config }}"
-              content: {"datetimePol":{"attributes":{"dn":"uni/fabric/time-ntp","name":"{{ fabric.ntp.name }}","rn":"time-{{ fabric.ntp.name }}","status":"created"},"children":[{"datetimeNtpProv":{"attributes":{"dn":"uni/fabric/time-{{ fabric.ntp.name }}/ntpprov-{{ fabric.ntp.ip }}","name":"{{ fabric.ntp.ip }}","rn":"ntpprov-{{ fabric.ntp.ip }}","status":"created"},"children":[{"datetimeRsNtpProvToEpg":{"attributes":{"tDn":"uni/tn-mgmt/mgmtp-default/oob-default","status":"created"},"children":[]}}]}}]}}
+              content: {"datetimePol":{"attributes":{"dn":"uni/fabric/time-{{ fabric.ntp.name }}","name":"{{ fabric.ntp.name }}","rn":"time-{{ fabric.ntp.name }}","status":"created"},"children":[{"datetimeNtpProv":{"attributes":{"dn":"uni/fabric/time-{{ fabric.ntp.name }}/ntpprov-{{ fabric.ntp.ip }}","name":"{{ fabric.ntp.ip }}","rn":"ntpprov-{{ fabric.ntp.ip }}","status":"created"},"children":[{"datetimeRsNtpProvToEpg":{"attributes":{"tDn":"uni/tn-mgmt/mgmtp-default/oob-default","status":"created"},"children":[]}}]}}]}}
           delegate_to: localhost    
           register: result
 
