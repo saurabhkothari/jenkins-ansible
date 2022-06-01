@@ -1,0 +1,39 @@
+- hosts: apic
+  gather_facts: no
+  
+ vars:
+    aci_login: &aci_login
+      hostname: '{{ apic_host }}'
+      username: '{{ apic_user }}'
+      password: '{{ apic_password | regex_escape() }}'
+      use_proxy: '{{ apic_use_proxy }}'
+      validate_certs: '{{ apic_validate_certs }}'
+  
+  vars_files:
+    - vars.yml    
+
+  tasks:
+  - name: Tenant
+    block: 
+      - name: Creating BD
+        aci_bd:
+            <<: *aci_login
+            tenant: "{{ tenant }}"
+            vrf_name: "{{ vrf_name }}"
+            bd: "{{ bd }}"
+            state: present
+            use_proxy: no
+            output_path: 'config.json'
+          
+      - name: Create Subnet
+        aci_bd_subnet:
+            <<: *aci_login
+            tenant: "{{ tenant }}"
+            bd: "{{ bd }}"
+            gateway: "{{ gateway }}"
+            mask: "{{ subnet }}"
+            state: present
+            use_proxy: no
+            output_path: 'config.json'
+    delegate_to: localhost
+          
