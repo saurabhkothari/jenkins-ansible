@@ -1,7 +1,7 @@
 - hosts: apic
   gather_facts: no
   
- vars:
+  vars:
     aci_login: &aci_login
       hostname: '{{ apic_host }}'
       username: '{{ apic_user }}'
