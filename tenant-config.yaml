@@ -15,7 +15,21 @@
   tasks:
   - name: Tenant
     block: 
-      - name: Creating BD
+      - name: Tenant
+        aci_tenant:
+          <<: *aci_login
+          tenant: '{{ tenant }}'
+          state: present
+          output_path: 'config.json'
+
+      - name: VRF
+        aci_vrf:
+            <<: *aci_login             
+            tenant: '{{ tenant }}'
+            vrf_name: '{{ vrf_name }}'
+            state: present
+            output_path: 'config.json'
+      - name: BD
         aci_bd:
             <<: *aci_login
             tenant: "{{ tenant }}"
@@ -25,7 +39,7 @@
             use_proxy: no
             output_path: 'config.json'
           
-      - name: Create Subnet
+      - name: Subnet
         aci_bd_subnet:
             <<: *aci_login
             tenant: "{{ tenant }}"
