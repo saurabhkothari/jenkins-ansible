@@ -13,7 +13,7 @@
       validate_certs: '{{ apic_validate_certs }}'
 
   vars_files:
-    - vars.yaml
+    - vars.yml
 
   tasks:
     - name: "Read Tenant information"
