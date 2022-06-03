@@ -2,10 +2,11 @@ pipeline {
     agent none
     parameters
     {
-     string(name: "APICIP", defaultValue: '10.106.236.57', description: "APIC IP")
-     string(name: "APICUSER", defaultValue: 'saukotha', description: "APIC User Name")
+     string(name: "APICIP", defaultValue: '10.106.236.50', description: "APIC IP")
+     string(name: "APICUSER", defaultValue: 'admin', description: "APIC User Name")
     }
     environment {
+        NUMBEROFSWITCHES = 3
         WEBEXAUTH = credentials('webex-auth-token')
         WEBEXROOM = credentials('webex-roomid')
         APICHOST = "$params.APICIP"
@@ -22,17 +23,19 @@ pipeline {
             stash includes: '*' , name: 'my-ansible-playbook'
             }
         }
-        stage('Get Firmware Details'){
+        stage('Fabric Discovery'){
             agent {
                 label 'ciscolive'
             }
             steps {
                 unstash 'my-ansible-playbook'
-             
+                script {
+                    int num = "${NUMBEROFSWITCHES}".toInteger()
+                    for (int i = 1; i <= num; ++i) {
                 ansiColor('xterm') {
                 
                             ansiblePlaybook(
-                             playbook: 'get_fw.yaml' ,
+                             playbook: '1discover-switches.yaml' ,
                              inventory: 'inventory',
                              extraVars: [
                                         "apic_host": "${APICHOST}",
@@ -41,10 +44,11 @@ pipeline {
                                         ],
                              colorized: true)
                
-                            } 
-                        
+                        } 
+                    }
                     }
                 }         
+            }
     }
    post { 
         success { 
@@ -60,8 +64,8 @@ pipeline {
   "markdown": "Started at: ${BUILD_TIMESTAMP}\\nAuthor:${env.BUILD_USER}(${env.BUILD_USER_EMAIL})\\nJob URL: ${Job_URL}\\nBuild ID: ${BUILD_NUMBER}\\nBuild Logs: ${BUILD_URL}consoleText\\nResult: ${currentBuild.currentResult}" 
 }'
          """
-        }
-        }
+                }
+            }
         }
         failure { 
             node("ciscolive") {
@@ -75,6 +79,11 @@ pipeline {
   "markdown": "Started at: ${BUILD_TIMESTAMP}\\nAuthor:${env.BUILD_USER}(${env.BUILD_USER_EMAIL})\\nJob URL: ${Job_URL}\\nBuild ID: ${BUILD_NUMBER}\\nBuild Logs: ${BUILD_URL}consoleText\\nResult: ${currentBuild.currentResult}" 
 }'
          """
-        } }
-    }
+            } 
+        }
+    
+
 }
+
+    }
+
