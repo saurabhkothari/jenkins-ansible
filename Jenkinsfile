@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             agent {
-                label 'ciscolive'
+                label 'ciscolive-git'
             }
             steps {
             git branch: 'main', url: 'https://github.com/saurabhkothari/jenkins-ansible.git'
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Fabric Discovery'){
             agent {
-                label 'ciscolive'
+                label 'ciscolive-ansible'
             }
             steps {
                 unstash 'my-ansible-playbook'
@@ -52,7 +52,7 @@ pipeline {
     }
    post { 
         success { 
-            node("ciscolive") {
+            node("ciscolive-webex") {
             wrap([$class: 'BuildUser']) {
             sh """
                     curl --location --request POST 'https://webexapis.com/v1/messages' \
