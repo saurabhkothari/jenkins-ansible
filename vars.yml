@@ -90,7 +90,7 @@ access:
 tenant:      "brkdev2291"
 vrf_name:    "Prod"
 bd:          "BD-cache"
-gateway: 192.168.103.254
+gateway: 192.168.102.254
 subnet: 24
 
 nae_host:
